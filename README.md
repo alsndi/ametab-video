@@ -38,6 +38,9 @@
     <td align="center"><img src="assets/past_temu.gif" width="170" alt="تيمو: كشاف الراس وكوبونات 100 دولار"><br><b>تيمو: كشاف الراس</b><br>دخلة الكشاف، عدّاد الكوبونات، والكود</td>
     <td align="center"><img src="assets/past_vini.gif" width="170" alt="فينيسيوس موقوف 4 مباريات"><br><b>فينيسيوس موقوف 4 مباريات</b><br>عدّاد العقوبة، الأسباب، والمباريات اللي بيغيب عنها</td>
   </tr>
+  <tr>
+    <td align="center"><img src="assets/past_tabs.gif" width="170" alt="التبويب العمودي في كروم"><br><b>التبويب العمودي في كروم</b><br>خطوات مرقّمة بسكرين شوت، ووجهك بمربع، و«جرّبتها؟ علّق»</td>
+  </tr>
 </table>
 
 <p align="center"><img src="assets/covers.png" width="600" alt="كفر الريل وثلاث ثمبنيلات يوتيوب"><br><b>كفر الريل وثلاث ثمبنيلات يوتيوب من فريم واحد</b> · <code>cover-thumb</code></p>
