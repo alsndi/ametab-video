@@ -1,0 +1,15 @@
+{
+  "name": "ametab-video",
+  "version": "0.2.1",
+  "description": "Arabic video editing skills for Claude Code by Ametab Alsndi: talking-head reels with silence removal and colorful word-by-word Arabic captions.",
+  "author": {
+    "name": "Ametab Alsndi",
+    "url": "https://github.com/alsndi"
+  },
+  "license": "MIT",
+  "skills": [
+    "./"
+  ],
+  "homepage": "https://github.com/alsndi/ametab-video",
+  "repository": "https://github.com/alsndi/ametab-video"
+}

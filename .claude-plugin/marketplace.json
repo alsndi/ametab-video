@@ -1,0 +1,15 @@
+{
+  "name": "ametab-video",
+  "owner": {
+    "name": "Ametab Alsndi",
+    "url": "https://github.com/alsndi"
+  },
+  "description": "Arabic video editing plugin for Claude Code by Ametab Alsndi",
+  "plugins": [
+    {
+      "name": "ametab-video",
+      "source": "./",
+      "description": "talk-reel: talking video to a 9:16 reel, silences removed, word-by-word Arabic captions (white, fills yellow as spoken)"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "font": "Tajawal Black",
+  "font_size": 100,
+  "bold": true,
+  "text_color": "#FFFFFF",
+  "outline_color": "#000000",
+  "outline": 8,
+  "shadow": 3,
+  "palette": ["#FFD60A"],
+  "highlight_mode": "fill",
+  "fill_color": "#FFD60A",
+  "highlight_scale": 100,
+  "max_words": 4,
+  "max_chunk_seconds": 2.0,
+  "margin_v": 560,
+  "width": 1080,
+  "height": 1920
+}
