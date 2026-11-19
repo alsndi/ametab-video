@@ -13,6 +13,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "..", "talk-reel", "scripts"))
 import render  # noqa: E402  (shared caption builder from talk-reel)
+import sfx_index  # noqa: E402  (same folder: pick sounds by role from the user's library)
 
 DEFAULT_BRAND = os.path.join(HERE, "..", "..", "talk-reel", "brand.json")
 FPS = "30000/1001"
@@ -172,7 +173,9 @@ def audio_graph(sfx, first_sfx_input, lufs):
     mix = ["[voice]"]
     for k, s in enumerate(sfx):
         ms = int(s["at"] * 1000)
-        g.append(f"[{first_sfx_input + k}:a]aresample=48000,volume={s.get('vol', 0.5)},adelay={ms}|{ms}[s{k}];")
+        vol = s.get("vol", 0.5) * 10 ** (s.get("gain_db", 0.0) / 20)
+        g.append(f"[{first_sfx_input + k}:a]aresample=48000,aformat=channel_layouts=stereo,volume={vol:.4f},"
+                 f"adelay={ms}|{ms}[s{k}];")
         mix.append(f"[s{k}]")
     g.append("".join(mix) + f"amix=inputs={len(mix)}:normalize=0:duration=first,alimiter=limit=0.93[ao]")
     return g
@@ -212,18 +215,42 @@ def main():
             clips.append(s["file"])
     clip_inputs = {c: 1 + k for k, c in enumerate(clips)}
 
-    sfx = list(plan.get("sfx", []))
+    sfx = [dict(s) for s in plan.get("sfx", [])]
     auto = plan.get("marker_sfx")
+
+    def spec(v):  # "09_Pop.wav" -> file from sfx_dir ; "role:pop" -> picked from the sound index
+        return {"role": v[5:]} if v.startswith("role:") else {"file": v}
+
     if auto:
         for m in plan.get("markers", []):
             if auto.get("appear"):
-                sfx.append({"file": auto["appear"], "at": m["start"], "vol": auto.get("appear_vol", 0.55)})
+                sfx.append({**spec(auto["appear"]), "at": m["start"], "vol": auto.get("appear_vol", 0.55)})
             if auto.get("tap") and m.get("tap"):
-                sfx.append({"file": auto["tap"], "at": m["tap"][0], "vol": auto.get("tap_vol", 0.8)})
+                sfx.append({**spec(auto["tap"]), "at": m["tap"][0], "vol": auto.get("tap_vol", 0.8)})
     sfx_dir = p(plan.get("sfx_dir", "sfx"))
+    index_path = plan.get("sfx_index", sfx_index.DEFAULT_INDEX)
+    peaks = {}
+    if any("role" in s for s in sfx):
+        if not os.path.exists(index_path):
+            sys.exit(f"No sound index at {index_path}; run sfx_index.py build <your sounds folder> first")
+        peaks = {x["path"]: x["f"]["peak_db"] for x in sfx_index.load(index_path)["sounds"] if x["f"]}
     for s in sfx:
-        if not os.path.exists(os.path.join(sfx_dir, s["file"])):
-            sys.exit(f"Missing sound: {os.path.join(sfx_dir, s['file'])}")
+        if "role" in s:
+            # taps/pops stay the same sound all video long; whooshes/hits/dings vary per moment
+            seed = "" if s["role"] in ("click", "pop") else f"{s['at']:.2f}"
+            picked = sfx_index.pick(s["role"], 1, seed + str(plan.get("sfx_seed", "")), index_path)
+            if not picked:
+                sys.exit(f"No sound for role '{s['role']}' in the index")
+            s["path"] = picked[0]
+            # library sounds are mastered at very different levels: bring each to about -8 dB peak
+            s["gain_db"] = max(-18.0, min(18.0, -8.0 - peaks.get(picked[0], -8.0)))
+        else:
+            s["path"] = os.path.join(sfx_dir, s["file"])
+        if not os.path.exists(s["path"]):
+            sys.exit(f"Missing sound: {s['path']}")
+    with open(os.path.join(work, os.path.basename(out) + ".sfx.json"), "w", encoding="utf-8") as f:
+        json.dump([{k: s[k] for k in ("at", "role", "path", "vol") if k in s} for s in sfx], f,
+                  ensure_ascii=False, indent=1)
 
     graph = video_graph(segments, clip_inputs, W, H, ass_name) + \
         audio_graph(sfx, 1 + len(clips), plan.get("loudness", -15))
@@ -235,7 +262,7 @@ def main():
     for c in clips:
         args += ["-i", p(c)]
     for s in sfx:
-        args += ["-i", os.path.join(sfx_dir, s["file"])]
+        args += ["-i", s["path"]]
     args += ["-filter_complex", "__GRAPH__", "-map", "[vo]", "-map", "[ao]",
              "-c:v", "libx264", "-preset", "medium", "-crf", str(plan.get("crf", 18)), "-pix_fmt", "yuv420p",
              "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", out]

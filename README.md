@@ -34,7 +34,7 @@
 - Python 3، و `pip install faster-whisper opencv-python numpy scipy`
 - خط [Tajawal](https://fonts.google.com/specimen/Tajawal) مثبت على جهازك
 - للموشن: [Node.js](https://nodejs.org) 18 أو أحدث
-- للأصوات: حزمة مؤثرات صوتية من عندك (الإضافة ما فيها أصوات)
+- للأصوات: مكتبة أو حزمة مؤثرات صوتية من عندك. الإضافة ما فيها أصوات، بس تفهرس مكتبتك وتختار منها لحالها (`motion-edit/scripts/sfx_index.py`)
 
 ## التثبيت
 في Claude Code اكتب:
