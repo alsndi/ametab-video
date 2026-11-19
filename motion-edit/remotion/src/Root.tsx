@@ -4,6 +4,13 @@ import {BatteryBoost} from './BatteryBoost';
 import {TitleCard, TitleCardProps} from './TitleCard';
 import {CoverProps, ReelCover, YouTubeThumb} from './Cover';
 import {Explainer, ExplainerProps} from './Explainer';
+import {Studio, StudioProps} from './Studio';
+
+const studioDefaults: StudioProps = {
+  duration: 5,
+  video: 'source.mp4',
+  beats: [{start: 0, end: 5, layout: 'split', card: {type: 'list', n: 1, total: 7, title: 'أول علامة', emoji: '📱'}}],
+};
 
 const explainerDefaults: ExplainerProps = {
   duration: 6,
@@ -49,6 +56,16 @@ export const Root: React.FC = () => (
       height={1920}
       durationInFrames={180}
       defaultProps={explainerDefaults}
+      calculateMetadata={({props}) => ({durationInFrames: Math.max(1, Math.round(props.duration * FPS))})}
+    />
+    <Composition
+      id="Studio"
+      component={Studio}
+      fps={FPS}
+      width={1080}
+      height={1920}
+      durationInFrames={150}
+      defaultProps={studioDefaults}
       calculateMetadata={({props}) => ({durationInFrames: Math.max(1, Math.round(props.duration * FPS))})}
     />
     {/* stills: render with `npx remotion still` */}

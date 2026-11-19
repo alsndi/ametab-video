@@ -39,6 +39,7 @@ python "<skill>/scripts/candidates.py" "<video>" "<work>/cover"
 python "<skill>/scripts/make_covers.py" "<work>/cover/cand_07.png" "<work>/covers" --title "حركة تطوّل" --highlight "البطارية" --tag "إعداد مخفي" --emoji "🔋" --face-x 0.5 --face-y 0.22
 ```
 - `--face-x` و`--face-y` مكان نص الوجه في الصورة، من 0 إلى 1، وتقدّرها من الصورة نفسها. تتحكم في القص: لو الوجه فوق، خل `--face-y` من 0.2 إلى 0.3.
+- **ستايل الاستوديو** (نفس أغلفة المستخدم السابقة: تاق ملوّن، والكلمة المهمة على مربع بلون الموضوع، وإطار REC): أضف `--look studio --accent green --rec`. واستخدم نفس `accent` اللي في فيديو `studio-reel`.
 - أول مرة ينسخ قالب Remotion إلى `<work>/motion`، ويشغّل `npm install`.
 
 ### 4. افحص

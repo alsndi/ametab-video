@@ -10,7 +10,12 @@ export type CoverProps = {
   faceY?: number;
   layout?: 'side' | 'bold' | 'split'; // YouTube layouts
   emoji?: string;
+  look?: 'classic' | 'studio'; // classic: yellow word + black stroke. studio: word on an accent box, accent tag
+  accent?: string; // studio accent colour
+  rec?: boolean; // studio: green REC corners on the reel cover
 };
+
+const LookCtx = React.createContext<{studio: boolean; accent: string}>({studio: false, accent: '#FFD60A'});
 
 const YELLOW = '#FFD60A';
 const PURPLE = '#4c1d95';
@@ -22,33 +27,36 @@ const Title: React.FC<{title: string; highlight: string; size: number; boxed?: b
   highlight,
   size,
   boxed,
-}) => (
+}) => {
+  const look = React.useContext(LookCtx);
+  const hi: React.CSSProperties = look.studio
+    ? {background: look.accent, color: '#fff', WebkitTextStroke: '0', padding: '0 0.2em', borderRadius: size / 5, textShadow: 'none', display: 'inline-block', marginTop: size * 0.08}
+    : boxed
+      ? {background: YELLOW, color: '#000', WebkitTextStroke: '0', padding: '0 0.18em', borderRadius: size / 6, textShadow: 'none'}
+      : {color: YELLOW};
+  return (
   <div
     style={{
       direction: 'rtl',
       fontFamily: FONT,
       fontWeight: 900,
       fontSize: size,
-      lineHeight: 1.12,
+      lineHeight: look.studio ? 1.2 : 1.12,
       color: '#fff',
       ...stroke(size / 11),
       textShadow: `0 ${size / 14}px 0 rgba(0,0,0,0.55)`,
     }}
   >
     {title}{' '}
-    <span
-      style={
-        boxed
-          ? {background: YELLOW, color: '#000', WebkitTextStroke: '0', padding: '0 0.18em', borderRadius: size / 6, textShadow: 'none'}
-          : {color: YELLOW}
-      }
-    >
-      {highlight}
-    </span>
+    {look.studio ? <br /> : null}
+    <span style={hi}>{highlight}</span>
   </div>
-);
+  );
+};
 
-const Tag: React.FC<{text: string; size: number}> = ({text, size}) => (
+const Tag: React.FC<{text: string; size: number}> = ({text, size}) => {
+  const look = React.useContext(LookCtx);
+  return (
   <div
     style={{
       display: 'inline-block',
@@ -56,21 +64,41 @@ const Tag: React.FC<{text: string; size: number}> = ({text, size}) => (
       fontFamily: FONT,
       fontWeight: 900,
       fontSize: size,
-      color: '#000',
-      background: YELLOW,
+      color: look.studio ? look.accent : '#000',
+      background: look.studio ? 'rgba(6,10,8,0.82)' : YELLOW,
       padding: `${size * 0.12}px ${size * 0.5}px`,
-      borderRadius: size,
-      border: `${size / 10}px solid #000`,
+      borderRadius: look.studio ? size * 0.35 : size,
+      border: look.studio ? `${size / 12}px solid ${look.accent}` : `${size / 10}px solid #000`,
       marginBottom: size * 0.4,
     }}
   >
     {text}
   </div>
-);
+  );
+};
+
+const RecCorners: React.FC = () => {
+  const c = (pos: React.CSSProperties, b: React.CSSProperties) => (
+    <div style={{position: 'absolute', width: 110, height: 110, borderColor: '#22c55e', borderStyle: 'solid', borderWidth: 0, ...pos, ...b}} />
+  );
+  return (
+    <AbsoluteFill>
+      {c({left: 60, top: 300}, {borderTopWidth: 10, borderLeftWidth: 10})}
+      {c({right: 60, top: 300}, {borderTopWidth: 10, borderRightWidth: 10})}
+      {c({left: 60, top: 1520}, {borderBottomWidth: 10, borderLeftWidth: 10})}
+      {c({right: 60, top: 1520}, {borderBottomWidth: 10, borderRightWidth: 10})}
+      <div style={{position: 'absolute', left: 95, top: 335, display: 'flex', alignItems: 'center', gap: 12, background: 'rgba(0,0,0,0.6)', borderRadius: 30, padding: '8px 22px'}}>
+        <div style={{width: 24, height: 24, borderRadius: 12, background: '#ef4444'}} />
+        <div style={{fontFamily: 'Arial', fontWeight: 900, fontSize: 34, color: '#fff'}}>REC</div>
+      </div>
+    </AbsoluteFill>
+  );
+};
 
 // 1080x1920 reel cover. Title block sits in y 1000..1480 so it is inside both the 1:1 (y 420..1500)
 // and 3:4 (y 240..1680) profile-grid crops; keep the face in the upper half of the frame.
-export const ReelCover: React.FC<CoverProps> = ({image, title, highlight, tag, faceY = 0.3}) => (
+export const ReelCover: React.FC<CoverProps> = ({image, title, highlight, tag, faceY = 0.3, look = 'classic', accent = '#ff3b4a', rec}) => (
+  <LookCtx.Provider value={{studio: look === 'studio', accent}}>
   <AbsoluteFill style={{backgroundColor: '#000'}}>
     <Img
       src={staticFile(image)}
@@ -79,9 +107,11 @@ export const ReelCover: React.FC<CoverProps> = ({image, title, highlight, tag, f
     <AbsoluteFill style={{background: 'linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.75) 78%)'}} />
     <div style={{position: 'absolute', top: 1000, left: 60, right: 60, textAlign: 'center'}}>
       {tag ? <Tag text={tag} size={58} /> : null}
-      <Title title={title} highlight={highlight} size={150} />
+      <Title title={title} highlight={highlight} size={look === 'studio' ? 140 : 150} />
     </div>
+    {look === 'studio' && rec ? <RecCorners /> : null}
   </AbsoluteFill>
+  </LookCtx.Provider>
 );
 
 // 1280x720 YouTube thumbnail, three layouts.
@@ -94,7 +124,15 @@ export const YouTubeThumb: React.FC<CoverProps> = ({
   faceY = 0.3,
   layout = 'side',
   emoji,
-}) => {
+  look = 'classic',
+  accent = '#ff3b4a',
+}) => (
+  <LookCtx.Provider value={{studio: look === 'studio', accent}}>
+    <YouTubeInner {...{image, title, highlight, tag, faceX, faceY, layout, emoji}} />
+  </LookCtx.Provider>
+);
+
+const YouTubeInner: React.FC<CoverProps> = ({image, title, highlight, tag, faceX = 0.5, faceY = 0.3, layout = 'side', emoji}) => {
   const pos = `${faceX * 100}% ${faceY * 100}%`;
   if (layout === 'split') {
     return (

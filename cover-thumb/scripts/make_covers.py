@@ -3,6 +3,7 @@
 Usage:
   python make_covers.py IMAGE OUT_DIR --title "حركة" --highlight "قوية"
          [--tag "جرّبها"] [--emoji "🔋"] [--face-x 0.5] [--face-y 0.3] [--work DIR]
+         [--look studio --accent green --rec]
 
 --face-x/--face-y: where the face center is in IMAGE (0..1), read off the frame.
 --work: folder that holds (or will hold) a copy of the Remotion template; defaults to
@@ -62,6 +63,10 @@ def main():
     ap.add_argument("--face-x", type=float, default=0.5)
     ap.add_argument("--face-y", type=float, default=0.3)
     ap.add_argument("--work")
+    ap.add_argument("--look", choices=["classic", "studio"], default="classic",
+                    help="classic: yellow word + black stroke. studio: word on an accent box (Ametab studio style)")
+    ap.add_argument("--accent", default="red", help="studio accent: red|green|cyan|blue|orange|yellow|purple|#hex")
+    ap.add_argument("--rec", action="store_true", help="studio: green REC corners on the reel cover")
     a = ap.parse_args()
 
     out = os.path.abspath(a.out)
@@ -76,6 +81,11 @@ def main():
         base["tag"] = a.tag
     if a.emoji:
         base["emoji"] = a.emoji
+    themes = {"red": "#ff3b4a", "green": "#22c55e", "cyan": "#22d3ee", "blue": "#3b82f6",
+              "orange": "#f97316", "yellow": "#FFD60A", "purple": "#a855f7"}
+    base["look"] = a.look
+    base["accent"] = themes.get(a.accent, a.accent)
+    base["rec"] = a.rec
 
     still(work, "ReelCover", base, os.path.join(out, "cover_reel.png"))
     for layout in ("side", "bold", "split"):
