@@ -4,8 +4,7 @@
 
 إضافة لـ Claude Code تمنتج فيديوهات عربية على جهازك. من تطوير **Ametab Alsndi**.
 
-## شوف وش تسوي
-
+## شوف شنو يسوي
 <table>
   <tr>
     <td align="center"><img src="assets/captions.gif" width="200" alt="كابشن كلمة بكلمة"><br><b>كابشن كلمة بكلمة</b><br><code>talk-reel</code></td>
