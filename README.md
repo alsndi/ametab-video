@@ -6,7 +6,7 @@
 
 ## ⚡ ابدأ في 4 خطوات
 
-<p align="center"><img src="assets/steps.png" alt="ابدأ في 4 خطوات: انسخ اسم المتجر، أضفه في Claude Code، ثبّت الإضافة، أرسل فيديو" width="100%"></p>
+<p align="center"><img src="assets/steps.png" alt="ابدأ في 4 خطوات: انسخ اسم المتجر، افتح Plugins، أضف المتجر، أرسل فيديو" width="100%"></p>
 
 **1. انسخ اسم المتجر.** زر النسخ موجود على طرف المربع:
 
@@ -14,11 +14,34 @@
 alsndi/ametab-video
 ```
 
-**2. أضفه في Claude Code.** افتح الإعدادات، وبعدها **Plugins**، واضغط **Add marketplace**، والصق الاسم.
+**2. افتح Plugins.** من القائمة الجانبية في Claude (claude.ai أو التطبيق)، اضغط **Customize** وبعدها **Plugins**.
 
-**3. ثبّت الإضافة.** بتطلع لك `ametab-video` في القائمة. اضغط **Install**، وبعدها افتح محادثة جديدة.
+**3. أضف المتجر.** اضغط **Add**، وبعدها **Add marketplace**، واختار **Add from a repository**. الصق الاسم، وخل **Sync automatically** شغّال عشان الإضافة تتحدّث لحالها، واضغط **Sync**. ولو طلعت لك `ametab-video` مع زر تثبيت، ثبّتها.
 
-**4. جرّبها.** أرسل فيديو تتكلم فيه، واكتب: «منتجه بستايلي، واللون أخضر». Claude يختار السكل المناسب، ويطلّع لك الريل على جهازك.
+**4. جرّبها.** افتح محادثة جديدة في **Claude Code**، وأرسل فيديو تتكلم فيه، واكتب: «منتجه بستايلي، واللون أخضر». Claude يختار السكل المناسب، ويطلّع لك الريل على جهازك.
+
+<details>
+<summary><b>شوف الخطوات بالصور</b> (من شاشات Claude الحقيقية)</summary>
+
+<br>
+
+**① Customize و② Plugins**
+
+<img src="assets/install_1.jpg" width="640" alt="القائمة الجانبية: Customize، وبعدها تبويب Plugins">
+
+**③ Add و④ Add marketplace**
+
+<img src="assets/install_2.jpg" width="640" alt="زر Add، وبعدها Add marketplace">
+
+**⑤ Add from a repository**
+
+<img src="assets/install_3.jpg" width="520" alt="نافذة Add marketplace: اختار Add from a repository">
+
+**⑥ الصق الاسم و⑦ Sync**
+
+<img src="assets/install_4.jpg" width="520" alt="الصق alsndi/ametab-video واضغط Sync">
+
+</details>
 
 <details>
 <summary><b>تحب التيرمنال؟</b> أمرين بس</summary>
