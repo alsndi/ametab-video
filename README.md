@@ -15,6 +15,15 @@
   </tr>
 </table>
 
+### ستايل الاستوديو
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/studio.gif" width="260" alt="ستايل الاستوديو: شاشة مقسومة وكروت وقائمة صح"><br><b>شاشة مقسومة، كروت، وقائمة صح تتعبّى</b><br><code>studio-reel</code></td>
+    <td align="center"><img src="assets/studio_cover.jpg" width="260" alt="كفر بستايل الاستوديو"><br><b>كفر بنفس الستايل: تاق، كلمة على لون، وREC</b><br><code>cover-thumb --look studio</code></td>
+  </tr>
+</table>
+
 <p align="center"><img src="assets/covers.png" width="600" alt="كفر الريل وثلاث ثمبنيلات يوتيوب"><br><b>كفر الريل وثلاث ثمبنيلات يوتيوب من فريم واحد</b> · <code>cover-thumb</code></p>
 
 ## السكلات
