@@ -1,6 +1,21 @@
+<p align="center"><img src="assets/hero.png" alt="ametab-video: مونتاج فيديو عربي داخل Claude Code" width="100%"></p>
+
 # ametab-video
 
 إضافة لـ Claude Code تمنتج فيديوهات عربية على جهازك. من تطوير **Ametab Alsndi**.
+
+## شوف وش تسوي
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/captions.gif" width="200" alt="كابشن كلمة بكلمة"><br><b>كابشن كلمة بكلمة</b><br><code>talk-reel</code></td>
+    <td align="center"><img src="assets/markers.gif" width="200" alt="إشارات على الإعدادات"><br><b>إشارات على الإعدادات</b><br><code>motion-edit</code></td>
+    <td align="center"><img src="assets/motion.gif" width="200" alt="موشن Remotion وسط الفيديو"><br><b>موشن وسط الفيديو</b><br><code>motion-edit</code></td>
+    <td align="center"><img src="assets/explainer.gif" width="200" alt="فيديو موشن بدون تصوير"><br><b>موشن بدون تصوير</b><br><code>motion-explainer</code></td>
+  </tr>
+</table>
+
+<p align="center"><img src="assets/covers.png" width="600" alt="كفر الريل وثلاث ثمبنيلات يوتيوب"><br><b>كفر الريل وثلاث ثمبنيلات يوتيوب من فريم واحد</b> · <code>cover-thumb</code></p>
 
 ## السكلات
 | السكل | وش يسوي |
