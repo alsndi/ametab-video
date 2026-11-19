@@ -4,6 +4,43 @@
 
 إضافة لـ Claude Code تمنتج فيديوهات عربية على جهازك. من تطوير **Ametab Alsndi**.
 
+## ⚡ ابدأ في 4 خطوات
+
+<p align="center"><img src="assets/steps.png" alt="ابدأ في 4 خطوات: انسخ اسم المتجر، أضفه في Claude Code، ثبّت الإضافة، أرسل فيديو" width="100%"></p>
+
+**1. انسخ اسم المتجر.** زر النسخ موجود على طرف المربع:
+
+```
+alsndi/ametab-video
+```
+
+**2. أضفه في Claude Code.** افتح الإعدادات، وبعدها **Plugins**، واضغط **Add marketplace**، والصق الاسم.
+
+**3. ثبّت الإضافة.** بتطلع لك `ametab-video` في القائمة. اضغط **Install**، وبعدها افتح محادثة جديدة.
+
+**4. جرّبها.** أرسل فيديو تتكلم فيه، واكتب: «منتجه بستايلي، واللون أخضر». Claude يختار السكل المناسب، ويطلّع لك الريل على جهازك.
+
+<details>
+<summary><b>تحب التيرمنال؟</b> أمرين بس</summary>
+
+```
+/plugin marketplace add alsndi/ametab-video
+/plugin install ametab-video@ametab-video
+```
+</details>
+
+<details>
+<summary><b>أول مرة؟</b> هذي الأدوات اللي تحتاجها على جهازك</summary>
+
+السكلات تشتغل على جهازك، مو على السيرفر، عشان كذا تحتاج هالأدوات. لو وحدة منها ناقصة، Claude بيقولك ويساعدك تثبّتها:
+
+- `ffmpeg`: على ويندوز `winget install Gyan.FFmpeg`، وعلى ماك `brew install ffmpeg`
+- Python 3، وبعده `pip install faster-whisper opencv-python numpy scipy`
+- خط [Tajawal](https://fonts.google.com/specimen/Tajawal)
+- للموشن: [Node.js](https://nodejs.org) 18 أو أحدث
+- للأصوات: مجلد مؤثرات صوتية من عندك. Claude يفهرسه مرة وحدة، وبعدها يختار منه لحاله
+</details>
+
 ## شوف شنو يسوي
 <table>
   <tr>
@@ -57,22 +94,6 @@
 | `podcast-cut` | بودكاست ومقابلات بأكثر من كاميرا: مزامنة من الصوت، قص على اللي يتكلم، الحلقة كاملة 16:9 أو ريلات 9:16 بهوك |
 | `motion-explainer` | فيديو موشن كامل بدون تصوير: عنوان، خطوات، أرقام، مقارنة، وجوال 3D يعرض سكرين شوت مع إشارات لمس |
 | `studio-reel` | ستايل الاستوديو: شاشة مقسومة أو وجه بمربع صغير، كروت غامقة بلون واحد للموضوع (قائمة 2/7، قائمة صح، نتيجة مباراة، شخص، جدول)، كابشن بمربع، REC وشريط تقدم، وأصوات تلقائية من مكتبتك |
-
-## المتطلبات
-- [Claude Code](https://claude.com/claude-code)
-- `ffmpeg` (ويندوز: `winget install Gyan.FFmpeg`، ماك: `brew install ffmpeg`)
-- Python 3، و `pip install faster-whisper opencv-python numpy scipy`
-- خط [Tajawal](https://fonts.google.com/specimen/Tajawal) مثبت على جهازك
-- للموشن: [Node.js](https://nodejs.org) 18 أو أحدث
-- للأصوات: مكتبة أو حزمة مؤثرات صوتية من عندك. الإضافة ما فيها أصوات، بس تفهرس مكتبتك وتختار منها لحالها (`motion-edit/scripts/sfx_index.py`)
-
-## التثبيت
-في Claude Code اكتب:
-```
-/plugin marketplace add alsndi/ametab-video
-/plugin install ametab-video@ametab-video
-```
-أو من التطبيق: Settings ثم Plugins ثم Add marketplace، وحط `alsndi/ametab-video`.
 
 ## الاستخدام
 - كابشن بس: أرسل فيديو لـ Claude وقل «منتج هالفيديو وسو منه ريل».
