@@ -24,6 +24,19 @@
   </tr>
 </table>
 
+### من فيديوهاتي
+
+مقاطع من فيديوهات سويتها قبل. منها انبنى ستايل `studio-reel`، وكل فيديو له لون حسب موضوعه.
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/past_hacked.gif" width="190" alt="هل هاتفك مخترق؟ 7 علامات"><br><b>هل هاتفك مخترق؟</b><br>REC، قائمة 7 علامات، تحذير، و«شتسوي؟»</td>
+    <td align="center"><img src="assets/past_claude.gif" width="190" alt="Claude يسوي جدول مصروفات"><br><b>Claude يسوي جدول مصروفات</b><br>كروت الجدول تنبني قدامك</td>
+    <td align="center"><img src="assets/past_barca.gif" width="190" alt="تحليل برشلونة وأتلتيكو"><br><b>تحليل برشلونة 2-1 أتلتيكو</b><br>لوحة النتيجة وكروت التحليل</td>
+    <td align="center"><img src="assets/past_chrome.gif" width="190" alt="تحديث كروم: الإرسال إلى أجهزتك"><br><b>تحديث كروم الجديد</b><br>موشن الأيقونات وسكرين شوت</td>
+  </tr>
+</table>
+
 <p align="center"><img src="assets/covers.png" width="600" alt="كفر الريل وثلاث ثمبنيلات يوتيوب"><br><b>كفر الريل وثلاث ثمبنيلات يوتيوب من فريم واحد</b> · <code>cover-thumb</code></p>
 
 ## السكلات
