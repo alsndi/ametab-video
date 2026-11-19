@@ -29,10 +29,11 @@
 
 <table>
   <tr>
-    <td align="center"><img src="assets/past_hacked.gif" width="190" alt="هل هاتفك مخترق؟ 7 علامات"><br><b>هل هاتفك مخترق؟</b><br>REC، قائمة 7 علامات، تحذير، و«شتسوي؟»</td>
-    <td align="center"><img src="assets/past_claude.gif" width="190" alt="Claude يسوي جدول مصروفات"><br><b>Claude يسوي جدول مصروفات</b><br>كروت الجدول تنبني قدامك</td>
-    <td align="center"><img src="assets/past_barca.gif" width="190" alt="تحليل برشلونة وأتلتيكو"><br><b>تحليل برشلونة 2-1 أتلتيكو</b><br>لوحة النتيجة وكروت التحليل</td>
-    <td align="center"><img src="assets/past_chrome.gif" width="190" alt="تحديث كروم: الإرسال إلى أجهزتك"><br><b>تحديث كروم الجديد</b><br>موشن الأيقونات وسكرين شوت</td>
+    <td align="center"><img src="assets/past_hacked.gif" width="170" alt="هل هاتفك مخترق؟ 7 علامات"><br><b>هل هاتفك مخترق؟</b><br>REC، قائمة 7 علامات، تحذير، و«شتسوي؟»</td>
+    <td align="center"><img src="assets/past_claude.gif" width="170" alt="Claude يسوي جدول مصروفات"><br><b>Claude يسوي جدول مصروفات</b><br>كروت الجدول تنبني قدامك</td>
+    <td align="center"><img src="assets/past_barca.gif" width="170" alt="تحليل برشلونة وأتلتيكو"><br><b>تحليل برشلونة 2-1 أتلتيكو</b><br>لوحة النتيجة وكروت التحليل</td>
+    <td align="center"><img src="assets/past_chrome.gif" width="170" alt="تحديث كروم: الإرسال إلى أجهزتك"><br><b>تحديث كروم الجديد</b><br>موشن الأيقونات وسكرين شوت</td>
+    <td align="center"><img src="assets/past_temu.gif" width="170" alt="تيمو: كشاف الراس وكوبونات 100 دولار"><br><b>تيمو: كشاف الراس</b><br>دخلة الكشاف، عدّاد الكوبونات، والكود</td>
   </tr>
 </table>
 
