@@ -5,6 +5,13 @@ import {TitleCard, TitleCardProps} from './TitleCard';
 import {CoverProps, ReelCover, YouTubeThumb} from './Cover';
 import {Explainer, ExplainerProps} from './Explainer';
 import {Studio, StudioProps} from './Studio';
+import {DepthProps, DepthText} from './DepthText';
+
+const depthDefaults: DepthProps = {
+  duration: 3,
+  layer: 'back',
+  items: [{mode: 'behind', text: 'حركة قوية', start: 0, end: 3}],
+};
 
 const studioDefaults: StudioProps = {
   duration: 5,
@@ -66,6 +73,16 @@ export const Root: React.FC = () => (
       height={1920}
       durationInFrames={150}
       defaultProps={studioDefaults}
+      calculateMetadata={({props}) => ({durationInFrames: Math.max(1, Math.round(props.duration * FPS))})}
+    />
+    <Composition
+      id="DepthText"
+      component={DepthText}
+      fps={FPS}
+      width={1080}
+      height={1920}
+      durationInFrames={90}
+      defaultProps={depthDefaults}
       calculateMetadata={({props}) => ({durationInFrames: Math.max(1, Math.round(props.duration * FPS))})}
     />
     {/* stills: render with `npx remotion still` */}
