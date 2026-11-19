@@ -1,7 +1,7 @@
 {
   "name": "ametab-video",
-  "version": "0.3.0",
-  "description": "إضافة عربية لمونتاج الفيديو من Ametab Alsndi: talk-reel للكابشن وقص السكتات، وmotion-edit للمونتاج الكامل بالأصوات والانتقالات والإشارات وموشن Remotion.",
+  "version": "0.4.0",
+  "description": "إضافة عربية لمونتاج الفيديو من Ametab Alsndi: 7 سكلات — كابشن وقص سكتات، مونتاج كامل بالموشن، كفر وثمبنيل، مونتاج على الإيقاع، ريفيو بصوتك، بودكاست مالتي كام، وفيديو موشن بدون تصوير.",
   "author": {
     "name": "Ametab Alsndi",
     "url": "https://github.com/alsndi"
