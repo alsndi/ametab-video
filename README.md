@@ -19,6 +19,7 @@
 <table>
   <tr>
     <td align="center"><img src="assets/studio.gif" width="260" alt="ستايل الاستوديو: شاشة مقسومة وكروت وقائمة صح"><br><b>شاشة مقسومة، كروت، وقائمة صح تتعبّى</b><br><code>studio-reel</code></td>
+    <td align="center"><img src="assets/studio_cards.jpg" width="260" alt="كروت ستايل الاستوديو: قائمة مرقّمة، قائمة صح، جدول، وعنوان"><br><b>الكروت: قائمة مرقّمة، قائمة صح، جدول، وعنوان</b><br><code>studio-reel</code></td>
     <td align="center"><img src="assets/studio_cover.jpg" width="260" alt="كفر بستايل الاستوديو"><br><b>كفر بنفس الستايل: تاق، كلمة على لون، وREC</b><br><code>cover-thumb --look studio</code></td>
   </tr>
 </table>
