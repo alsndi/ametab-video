@@ -136,5 +136,18 @@ alsndi/ametab-video
 - كابشن ناعم: «كابشن ناعم بخط أنيق، مو العريض».
 - ستايل الاستوديو: «منتجه بستايلي، شاشة مقسومة وكروت، اللون أخضر». والكفر بنفس الستايل: «سو كفر ستايل الاستوديو».
 
+## الخطوط
+
+الإضافة فيها أربع خطوط عربية مفتوحة المصدر، في مجلد [`fonts/`](fonts). الأدوات تقرأها مباشرة من المجلد، وما تحتاج تثبّتها على جهازك:
+
+| الخط | الاستخدام | الحقوق |
+|---|---|---|
+| **Aref Ruqaa** | الكلمة الكبيرة الذهبية بخط الرقعة | The Aref Ruqaa Project Authors |
+| **Reem Kufi** | كلام كوفي هندسي | The Reem Kufi Project Authors |
+| **Alexandria** | كلام حديث نظيف | The Alexandria Project Authors |
+| **Amiri** (Bold Italic) | الكلمة المائلة في الكابشن الناعم | The Amiri Project Authors |
+
+كلها منزّلة من مستودع **Google Fonts** الرسمي بدون تعديل، وبرخصة **SIL Open Font License 1.1**. المصدر والرخصة لكل خط مكتوبة في [`fonts/SOURCES.md`](fonts/SOURCES.md).
+
 ## الرخصة
 MIT © 2026 Ametab Alsndi

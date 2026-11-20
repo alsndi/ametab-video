@@ -42,6 +42,9 @@ def ensure_project(work):
         print("npm install (first time only)...")
         subprocess.run([NPM, "install", "--no-fund", "--no-audit"], cwd=work, check=True)
     os.makedirs(os.path.join(work, "public"), exist_ok=True)
+    fonts_src = os.path.join(HERE, "..", "..", "fonts")
+    if os.path.isdir(fonts_src):
+        shutil.copytree(fonts_src, os.path.join(work, "public", "fonts"), dirs_exist_ok=True)
 
 
 def main():

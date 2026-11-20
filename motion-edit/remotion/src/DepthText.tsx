@@ -23,7 +23,26 @@ export type DepthItem = {
   speed?: number; // turns per second
   tilt?: number; // degrees
   front?: boolean; // behind/rise: draw on the front layer instead
+  font?: 'tajawal' | 'ruqaa' | 'kufi' | 'alexandria' | string; // ruqaa = Aref Ruqaa calligraphy
+  fill?: 'goldgrad' | 'creamgrad'; // gradient letters instead of cycling colours
 };
+
+const FONTS: Record<string, string> = {
+  tajawal: "'Tajawal Black', 'Tajawal', 'Cairo', sans-serif",
+  ruqaa: "'Aref Ruqaa', 'Amiri', serif",
+  kufi: "'Reem Kufi', 'Tajawal', sans-serif",
+  alexandria: "'Alexandria', 'Tajawal', sans-serif",
+};
+const fontOf = (it: DepthItem) => FONTS[it.font ?? 'tajawal'] ?? `'${it.font}', 'Tajawal', sans-serif`;
+const GRADS: Record<string, string> = {
+  goldgrad: 'linear-gradient(180deg, #FFF1B8 0%, #F2C14E 45%, #B8862B 100%)',
+  creamgrad: 'linear-gradient(180deg, #FFFDF5 0%, #F3E6C8 60%, #D9C39A 100%)',
+};
+const paint = (it: DepthItem, color: string): React.CSSProperties =>
+  it.fill && GRADS[it.fill]
+    ? {backgroundImage: GRADS[it.fill], WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
+       filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.35))'}
+    : {color};
 
 export type DepthProps = {duration: number; layer: 'back' | 'front'; items: DepthItem[]};
 
@@ -52,12 +71,12 @@ const Behind: React.FC<{it: DepthItem; t: number; fps: number; frame: number}> =
         top: (it.y ?? 520) - size * 0.6,
         textAlign: 'center',
         direction: 'rtl',
-        fontFamily: FONT,
-        fontWeight: 900,
+        fontFamily: fontOf(it),
+        fontWeight: it.font === 'ruqaa' ? 700 : 900,
         fontSize: size,
-        lineHeight: 1.1,
-        color: cycle(colors, local),
-        textShadow: '0 10px 40px rgba(0,0,0,0.35)',
+        lineHeight: it.font === 'ruqaa' ? 1.5 : 1.1,
+        ...paint(it, cycle(colors, local)),
+        textShadow: it.fill ? undefined : '0 10px 40px rgba(0,0,0,0.35)',
         transform: `translateY(${(1 - inn) * 260}px) scale(${0.85 + 0.15 * inn})`,
         opacity: Math.min(inn, out),
         whiteSpace: 'nowrap',
@@ -85,7 +104,7 @@ const Rise: React.FC<{it: DepthItem; t: number}> = ({it, t}) => {
         top: (it.y ?? 700) - size * 0.6,
         textAlign: 'center',
         direction: 'rtl',
-        fontFamily: FONT,
+        fontFamily: fontOf(it),
         fontWeight: 900,
         fontSize: size,
         color: cycle(colors, t - it.start),
@@ -136,7 +155,7 @@ const Orbit: React.FC<{it: DepthItem; t: number; layer: 'back' | 'front'}> = ({i
               top: y,
               transform: `translate(-50%, -50%) scale(${scale}) scaleX(${0.55 + 0.45 * Math.abs(depth)})`,
               direction: 'rtl',
-              fontFamily: FONT,
+              fontFamily: fontOf(it),
               fontWeight: 900,
               fontSize: size,
               color: cycle(colors, local + k * 0.25),

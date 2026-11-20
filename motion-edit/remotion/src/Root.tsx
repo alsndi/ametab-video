@@ -1,5 +1,6 @@
 import React from 'react';
 import {Composition} from 'remotion';
+import './Fonts';
 import {BatteryBoost} from './BatteryBoost';
 import {TitleCard, TitleCardProps} from './TitleCard';
 import {CoverProps, ReelCover, YouTubeThumb} from './Cover';

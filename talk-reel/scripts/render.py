@@ -170,6 +170,16 @@ def build_ass(words, brand, total):
     return "\n".join(lines) + "\n"
 
 
+FONTS_DIR = os.path.abspath(os.path.join(HERE, "..", "..", "fonts")).replace("\\", "/")
+
+
+def ass_filter(ass_name):
+    """ass filter that also loads the plugin's bundled OFL fonts (Aref Ruqaa, Reem Kufi, Alexandria,
+    Amiri) without installing them on the system. System fonts keep working as before."""
+    # the drive colon (C:) must be escaped for ffmpeg's option parser, inside the graph-level quotes
+    return f"ass=filename={ass_name}:fontsdir='{FONTS_DIR.replace(':', chr(92) + ':')}'"
+
+
 def run_ffmpeg(args, graph_path, cwd):
     cmd = ["ffmpeg", "-y", "-v", "error", "-stats"] + args
     new = cmd[:]
@@ -232,7 +242,7 @@ def main():
     g.append("".join(f"[v{i}][a{i}]" for i in range(len(segs))) + f"concat=n={len(segs)}:v=1:a=1[vc][ac];")
     g.append(
         f"[vc]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1,"
-        f"ass={ass_name}[vo];"
+        f"{ass_filter(ass_name)}[vo];"
     )
     g.append("[ac]loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[ao]")
     graph_name = base_name + ".graph.txt"

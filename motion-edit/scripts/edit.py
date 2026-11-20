@@ -164,7 +164,7 @@ def video_graph(segments, clip_inputs, W, H, ass_name):
             g.append(f"{base},scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1[v{i}];")
         labels.append(f"[v{i}]")
     g.append("".join(labels) + f"concat=n={len(labels)}:v=1:a=0,fps={FPS}[vc];")
-    g.append(f"[vc]ass={ass_name}[vo];")
+    g.append(f"[vc]{render.ass_filter(ass_name)}[vo];")
     return g
 
 

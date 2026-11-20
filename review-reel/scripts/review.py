@@ -143,7 +143,7 @@ def main():
                       f"s={W}x{H}:fps={FPS}")
         g.append(chain + f",trim=end_frame={n},setpts=PTS-STARTPTS[v{i}];")
         labels.append(f"[v{i}]")
-    g.append("".join(labels) + f"concat=n={len(labels)}:v=1:a=0,format=yuv420p,ass={ass_name}[vo];")
+    g.append("".join(labels) + f"concat=n={len(labels)}:v=1:a=0,format=yuv420p,{render.ass_filter(ass_name)}[vo];")
 
     vi = len(files)
     g.append(f"[{vi}:a]atrim=duration={total:.3f},asetpts=PTS-STARTPTS,aresample=48000,"

@@ -103,7 +103,7 @@ def main():
             g.append(f"[0:v]trim=start={a + t0:.3f}:end={b + t0:.3f},setpts=PTS-STARTPTS[v{k}];")
             g.append(f"[0:a]atrim=start={a + t0:.3f}:end={b + t0:.3f},asetpts=PTS-STARTPTS[a{k}];")
         g.append("".join(f"[v{k}][a{k}]" for k in range(len(segs))) + f"concat=n={len(segs)}:v=1:a=1[vc][ac];")
-        g.append(f"[vc]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1,ass={ass_name}[vo];")
+        g.append(f"[vc]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},setsar=1,{render.ass_filter(ass_name)}[vo];")
         g.append("[ac]loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[ao]")
         graph = f"{name}.graph.txt"
         open(os.path.join(out_dir, graph), "w", encoding="utf-8").write("\n".join(g))

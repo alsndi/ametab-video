@@ -250,7 +250,7 @@ def cmd_render(plan_path):
                          f"{hook['title']} {{\\c{hi}}}{hook.get('highlight', '')}")
         ass_name = os.path.basename(out) + ".ass"
         open(os.path.join(work, ass_name), "w", encoding="utf-8").write("\n".join(lines) + "\n")
-        g.append(f"[vc]ass={ass_name}[vt];")
+        g.append(f"[vc]{render.ass_filter(ass_name)}[vt];")
         vout = "[vt]"
     audio, aoff = main_audio(plan, p, offs)
     ai = len(cams)

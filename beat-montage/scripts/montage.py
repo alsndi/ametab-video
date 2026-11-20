@@ -147,7 +147,7 @@ def main():
         brand = json.load(open(os.path.join(HERE, "..", "..", "talk-reel", "brand.json"), encoding="utf-8"))
         out_name = os.path.basename(p(plan.get("out", "montage.mp4")))
         title_ass(plan["text"], brand, os.path.join(work, out_name + ".ass"))
-        g.append(f"[vc]ass={out_name}.ass[vt];")
+        g.append(f"[vc]{render.ass_filter(out_name + '.ass')}[vt];")
         vout = "[vt]"
     fade = float(plan.get("fade_out", 1.0))
     mi = len(inputs)
