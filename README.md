@@ -74,6 +74,10 @@ alsndi/ametab-video
   </tr>
 </table>
 
+### الكتابة ورا ظهرك
+
+<p align="center"><img src="assets/depth.gif" width="300" alt="كتابة ورا الظهر بخط الرقعة الذهبي، وكلمات تدور حولي"><br><b>«ميزة جديدة» بخط الرقعة الذهبي ورا ظهري، و«تبويب عمودي» تدور حولي</b><br><code>depth-text</code></p>
+
 ### ستايل الاستوديو
 
 <table>

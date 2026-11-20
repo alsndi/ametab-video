@@ -13,6 +13,7 @@ export type DepthItem = {
   end: number;
   colors?: string[]; // cycles through these; one colour = solid
   y?: number; // behind / rise: vertical centre
+  x?: number; // behind / rise: horizontal centre (default: middle of the frame)
   size?: number; // font size px
   // orbit
   cx?: number;
@@ -66,8 +67,7 @@ const Behind: React.FC<{it: DepthItem; t: number; fps: number; frame: number}> =
     <div
       style={{
         position: 'absolute',
-        left: 0,
-        right: 0,
+        ...(it.x !== undefined ? {left: it.x, marginLeft: -2000, width: 4000} : {left: 0, right: 0}),
         top: (it.y ?? 520) - size * 0.6,
         textAlign: 'center',
         direction: 'rtl',
@@ -99,8 +99,7 @@ const Rise: React.FC<{it: DepthItem; t: number}> = ({it, t}) => {
     <div
       style={{
         position: 'absolute',
-        left: 0,
-        right: 0,
+        ...(it.x !== undefined ? {left: it.x, marginLeft: -2000, width: 4000} : {left: 0, right: 0}),
         top: (it.y ?? 700) - size * 0.6,
         textAlign: 'center',
         direction: 'rtl',
