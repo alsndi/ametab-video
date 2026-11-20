@@ -1,0 +1,25 @@
+{
+  "font": "Tajawal Medium",
+  "accent_font": "Amiri",
+  "font_size": 84,
+  "bold": false,
+  "text_color": "#FFFFFF",
+  "outline_color": "#000000",
+  "outline": 5,
+  "shadow": 2,
+  "shadow_color": "#000000",
+  "palette": [
+    "#F7C6D3"
+  ],
+  "highlight_mode": "soft",
+  "fill_color": "#F7C6D3",
+  "unsaid_alpha": "&H90&",
+  "highlight_scale": 165,
+  "max_words": 4,
+  "max_chunk_seconds": 2.2,
+  "margin_v": 560,
+  "width": 1080,
+  "height": 1920,
+  "outline_alpha": "70",
+  "glow_blur": 7
+}

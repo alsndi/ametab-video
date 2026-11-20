@@ -94,6 +94,8 @@ def build_ass(words, brand, total):
     W, H = brand["width"], brand["height"]
     base = ass_color(brand["text_color"])
     outline = ass_color(brand["outline_color"])
+    if brand.get("outline_alpha"):  # e.g. "70" = semi-transparent outline, used as a soft glow
+        outline = "&H" + brand["outline_alpha"] + outline[4:]
     bold = -1 if brand.get("bold", True) else 0
     lines = [
         "[Script Info]",
@@ -107,7 +109,8 @@ def build_ass(words, brand, total):
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, "
         "Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, "
         "Alignment, MarginL, MarginR, MarginV, Encoding",
-        f"Style: Word,{brand['font']},{brand['font_size']},{base},{base},{outline},&H80000000,"
+        f"Style: Word,{brand['font']},{brand['font_size']},{base},{base},{outline},"
+        f"{ass_color(brand['shadow_color']) if brand.get('shadow_color') else '&H80000000'},"
         # Encoding -1 = libass auto base direction; with 1 (LTR) Arabic word order breaks
         # as soon as one word gets its own override tags.
         f"{bold},0,0,0,100,100,0,0,1,{brand['outline']},{brand['shadow']},2,60,60,{brand['margin_v']},-1",
@@ -119,9 +122,15 @@ def build_ass(words, brand, total):
     scale = brand.get("highlight_scale", 115)
     # "word": only the current word is colored (palette cycles per chunk).
     # "fill": every word already said stays colored (fill_color) until the chunk ends.
-    fill = brand.get("highlight_mode", "word") == "fill"
-    if fill:
+    # "soft": thin white text, words not said yet are faded, the spoken word switches to an elegant
+    #         accent font (e.g. Amiri italic) in a soft colour - no thick outline.
+    mode = brand.get("highlight_mode", "word")
+    fill = mode == "fill"
+    soft = mode == "soft"
+    if fill or soft:
         palette = [ass_color(brand.get("fill_color", brand["palette"][0]))]
+    acc_font = brand.get("accent_font", brand["font"])
+    unsaid = brand.get("unsaid_alpha", "&H90&")
     chunks = chunk_words(words, brand["max_words"], brand["max_chunk_seconds"])
     for ci, chunk in enumerate(chunks):
         color = palette[ci % len(palette)]
@@ -135,6 +144,15 @@ def build_ass(words, brand, total):
             parts = []
             for j, other in enumerate(chunk):
                 text = clean(other["w"])
+                if soft:
+                    if j == k:
+                        parts.append(f"{{\\fn{acc_font}\\b1\\i1\\c{color}\\fscx{scale}\\fscy{scale}}}{text}"
+                                     f"{{\\fn{brand['font']}\\b0\\i0\\c{base}\\fscx100\\fscy100}}")
+                    elif j > k:
+                        parts.append(f"{{\\1a{unsaid}}}{text}{{\\1a&H00&}}")
+                    else:
+                        parts.append(text)
+                    continue
                 if j == k:
                     parts.append(
                         f"{{\\c{color}\\fscx{scale}\\fscy{scale}}}{text}{{\\c{base}\\fscx100\\fscy100}}"
@@ -144,6 +162,8 @@ def build_ass(words, brand, total):
                 else:
                     parts.append(text)
             intro = "{\\fad(70,0)}" if k == 0 else ""
+            if soft:
+                intro = "{" + (f"\\blur{brand.get('glow_blur', 6)}") + ("\\fad(90,0)" if k == 0 else "") + "}"
             lines.append(
                 f"Dialogue: 0,{ass_time(start)},{ass_time(end)},Word,,0,0,0,,{intro}{' '.join(parts)}"
             )

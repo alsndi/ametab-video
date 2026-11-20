@@ -43,6 +43,13 @@ def ensure_project(work):
     os.makedirs(os.path.join(work, "public"), exist_ok=True)
 
 
+def probe_size(path):
+    out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
+                          "-of", "csv=p=0", path], capture_output=True, text=True, check=True).stdout.strip()
+    w, h = out.split(",")[:2]
+    return int(w), int(h)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("plan")
@@ -91,19 +98,23 @@ def main():
     if a.still is not None:
         t = a.still - s
         still = f"{base}_still_{a.still:.1f}.png"
-        g = (f"[1:v]format=gray[m];[0:v][m]alphamerge[person];"
-             f"[0:v][2:v]overlay[b1];[b1][person]overlay[b2];[b2][3:v]overlay,scale=540:-1")
+        vw, vh = probe_size(src)
+        g = (f"[1:v]format=gray[m];[0:v]split[v0][v1];[v1][m]alphamerge[person];"
+             f"[2:v]scale={vw}:{vh}[bk];[3:v]scale={vw}:{vh}[fr];"
+             f"[v0][bk]overlay[b1];[b1][person]overlay[b2];[b2][fr]overlay,scale=540:-1")
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(a.still), "-i", src, "-ss", str(t), "-i", mask,
                         "-i", layers["back"], "-i", layers["front"], "-filter_complex", g, "-frames:v", "1", still],
                        check=True)
         print(f"still -> {still}")
         return
 
+    # text layers are drawn on a 1080x1920 canvas; scale them to the source size (e.g. 720x1280)
+    vw, vh = probe_size(src)
     g = (f"[0:v]split[base][src];"
          f"[src]trim=start={s}:duration={dur},setpts=PTS-STARTPTS[seg];"
          f"[1:v]format=gray[m];[seg][m]alphamerge,setpts=PTS+{s}/TB[person];"
-         f"[2:v]format=yuva444p,setpts=PTS+{s}/TB[back];"
-         f"[3:v]format=yuva444p,setpts=PTS+{s}/TB[front];"
+         f"[2:v]format=yuva444p,scale={vw}:{vh},setpts=PTS+{s}/TB[back];"
+         f"[3:v]format=yuva444p,scale={vw}:{vh},setpts=PTS+{s}/TB[front];"
          f"[base][back]overlay=eof_action=pass:enable='between(t,{s},{e})'[b1];"
          f"[b1][person]overlay=eof_action=pass:enable='between(t,{s},{e})'[b2];"
          f"[b2][front]overlay=eof_action=pass:enable='between(t,{s},{e})',format=yuv420p[v]")
